@@ -23,6 +23,11 @@
  * in C language to PHP. However, there are additional function to handle string of bit 
  * and arithmetic shift operation.
  * 
+ * Credit #1: The first PHP porting is done by Tanawat Hongthai in 2016
+ * Credit #2: Receive feedback from Silicon Craft customer regarding to issue 
+ *            with 32-bit PHP and 64-bit PHP. This lead to modification 
+ *            from PHP_INT_MAX to 2147483647 in function "u32sh_r".
+ * 
  * For original information regarding to Mickey v1 algorithm, please refer to 
  * http://www.ecrypt.eu.org/stream/ciphers/mickey/
  *
@@ -257,6 +262,9 @@ function decbit($dec_string) {
 function u32sh_r($int, $shft) { 
     return ( $int >> $shft )   //Arithmetic right shift
         & ( 2147483647 >> ( $shft - 1 ) );   //Deleting unnecessary bits
+        // Magic Number 2147483647 is refer to 7FFFFFFFh.
+        // Cannot use PHP_INT_MAX due to dependency with PHP 32-bit or 64-bit
+        // which lead to incorrect result.
 }
 
 ?>
