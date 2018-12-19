@@ -33,7 +33,7 @@
       padding: 5px;
       text-align: left;    
     }
-</style>
+  </style>
 	
 </head>
 <body>
@@ -47,37 +47,64 @@
   
   /* No storage for latest time stamp and tamper flag on server side */
 	$timeStampServer = "N/A";
-	$flagTamperServer = "N/A";
+  $flagTamperServer = "N/A";
+  
+	$timeStampDecision = "N/A";
+  $flagTamperDecision = "N/A";
+  
+  /*---- Time Stamp Counting Decision ----*/
+  if ($timeStampServer == "N/A") {
+    $timeStampDecision = "N/A";
+  } else {
+    if ($timeStampServer < $timeStampTag) {
+      $timeStampDecision == "Rolling code updated";
+    }else {
+      $timeStampDecision == "Rolling code reused";
+    }
+  }
+
+  /*---- Rolling Code Counting Decision ----*/
+  $rollingCodeDecision = "N/A";
+
+  if ($rollingCodeServer == $rollingCodeTag) {
+    $rollingCodeDecision = "Correct";
+  } else {
+    $rollingCodeDecision = "Incorrect";
+  }
 ?>
 <h1>SIC43NT Demonstration</h1>
 <table style="width:75%">
   <tr>
     <th>UID[7]</th>
-    <td colspan="2"><?php echo $uid; ?></td> 
+    <td colspan="3"><?php echo $uid; ?></td> 
   </tr>
   <tr>
     <th>Default Key</th> 
-    <td colspan="2"><?php echo $defaultKey; ?></td> 
+    <td colspan="3"><?php echo $defaultKey; ?></td> 
   </tr>
   <tr>
     <td> - </td>
     <td> From Tag </td> 
     <td> From Server</td> 
+    <td> Result</td>     
   </tr>
   <tr>
     <th>Tamper Flag(HEX)</th>
     <td><?php echo $flagTamperTag; ?></td> 
     <td><?php echo $flagTamperServer; ?></td> 
+    <td><?php echo $flagTamperDecision; ?></td>     
   </tr>
   <tr>
     <th>Time Stamp(DEC)</th>
     <td><?php echo $timeStampTag; ?></td> 
     <td><?php echo $timeStampServer; ?></td> 
+    <td><?php echo $timeStampDecision; ?></td>     
   </tr>  
   <tr>
     <th>Rolling code(HEX)</th>
     <td><?php echo $rollingCodeTag; ?></td>
     <td><?php echo $rollingCodeServer; ?></td> 
+    <td><?php echo $rollingCodeDecision; ?></td>     
   </tr>  
 
 </table>
