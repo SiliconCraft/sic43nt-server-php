@@ -57,9 +57,9 @@
     $timeStampDecision = "N/A";
   } else {
     if ($timeStampServer < $timeStampTag) {
-      $timeStampDecision == "Rolling code updated";
+      $timeStampDecision = "Rolling code updated";
     }else {
-      $timeStampDecision == "Rolling code reused";
+      $timeStampDecision = "Rolling code reused";
     }
   }
 
