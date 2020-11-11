@@ -69,7 +69,18 @@
   if ($rollingCodeServer == $rollingCodeTag) {
     $rollingCodeDecision = "Correct";
   } else {
-    $rollingCodeDecision = "Incorrect";
+    if ($flagTamperTag == "AA") {
+      $rlc = keystream(hexbit($defaultKey), hexbit(substr($rawData, 16, 8)), 12); 
+      $rollingCodeServer = substr($rlc, 16, 8);
+
+      if ($rollingCodeServer == $rollingCodeTag) {
+        $rollingCodeDecision = "Correct";
+      } else {
+        $rollingCodeDecision = "Incorrect";
+      }
+    } else {
+      $rollingCodeDecision = "Incorrect";
+    }
   }
 ?>
 <h1>SIC43NT Demonstration</h1>
