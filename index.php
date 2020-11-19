@@ -70,6 +70,7 @@
     $rollingCodeDecision = "Correct";
   } else {
     if ($flagTamperTag == "AA") {
+		/* for tags that can setting secure tamper */
       $rlc = keystream(hexbit($defaultKey), hexbit(substr($rawData, 16, 8)), 12); 
       $rollingCodeServer = substr($rlc, 16, 8);
 
